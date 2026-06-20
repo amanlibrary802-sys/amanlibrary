@@ -1,0 +1,20 @@
+[
+  {
+    "id": "bk_001",
+    "title": "Mathematics for Engineers",
+    "author": "A. Kumar",
+    "category": "Science",
+    "shelf": "A1",
+    "isbn": "978-93-123456-7-8",
+    "coverUrl": "/images/covers/math_engineers.jpg"
+  },
+  {
+    "id": "bk_002",
+    "title": "Modern Malayalam Poetry",
+    "author": "M. Nair",
+    "category": "Literature",
+    "shelf": "B3",
+    "isbn": "978-93-234567-8-9",
+    "coverUrl": "/images/covers/malayalam_poetry.jpg"
+  }
+]
