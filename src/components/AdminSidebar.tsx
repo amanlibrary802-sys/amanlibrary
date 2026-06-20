@@ -194,7 +194,7 @@ export default function AdminSidebar({ mobileOpen, setMobileOpen }: { mobileOpen
                 href={entry.path}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all duration-300 ease-in-out group ${
                   isActive
-                    ? 'bg-secondary text-primary'
+                    ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.4)]'
                     : 'text-cream/70 hover:bg-secondary/10 hover:text-secondary'
                 }`}
               >
@@ -247,7 +247,7 @@ export default function AdminSidebar({ mobileOpen, setMobileOpen }: { mobileOpen
                         href={child.path}
                         className={`flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold transition-all group ${
                           isChildActive
-                            ? 'bg-secondary text-primary'
+                            ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.4)]'
                             : 'text-cream/60 hover:bg-secondary/10 hover:text-secondary'
                         }`}
                       >

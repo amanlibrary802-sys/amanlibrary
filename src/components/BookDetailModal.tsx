@@ -40,23 +40,23 @@ const statusConfig: Record<string, { label: string; icon: React.ReactNode; bg: s
   Available: {
     label: 'Available',
     icon: <CheckCircle2 className="w-4 h-4" />,
-    bg: 'bg-emerald-50',
-    text: 'text-emerald-700',
-    border: 'border-emerald-200',
+    bg: 'bg-green-500/10',
+    text: 'text-green-400',
+    border: 'border-green-500/20',
   },
   Ordered: {
     label: 'Ordered / Reserved',
     icon: <Clock className="w-4 h-4" />,
-    bg: 'bg-amber-50',
-    text: 'text-amber-700',
-    border: 'border-amber-200',
+    bg: 'bg-amber-500/10',
+    text: 'text-amber-400',
+    border: 'border-amber-500/20',
   },
   Issued: {
     label: 'Currently Issued',
     icon: <AlertCircle className="w-4 h-4" />,
-    bg: 'bg-blue-50',
-    text: 'text-blue-700',
-    border: 'border-blue-200',
+    bg: 'bg-blue-500/10',
+    text: 'text-blue-400',
+    border: 'border-blue-500/20',
   },
 };
 
@@ -70,11 +70,11 @@ function InfoRow({
   value: React.ReactNode;
 }) {
   return (
-    <div className="flex items-start gap-3 py-3 border-b border-secondary/8 last:border-0">
-      <span className="mt-0.5 p-2 rounded-lg bg-primary/5 text-primary shrink-0">{icon}</span>
+    <div className="flex items-start gap-3 py-3 border-b border-white/5 last:border-0">
+      <span className="mt-0.5 p-2 rounded-lg bg-blue-500/10 text-blue-400 shrink-0">{icon}</span>
       <div className="flex-1 min-w-0">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-primary/40 mb-0.5">{label}</p>
-        <p className="text-sm font-semibold text-primary break-words">{value}</p>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">{label}</p>
+        <p className="text-sm font-semibold text-slate-200 break-words">{value}</p>
       </div>
     </div>
   );
@@ -135,31 +135,25 @@ export default function BookDetailModal({ book, onClose, onOrder, onCancel, orde
           >
             <div 
               onClick={(e) => e.stopPropagation()} 
-              className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col cursor-default"
+              className="relative w-full max-w-[360px] bg-slate-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col cursor-default border border-white/10"
             >
               {/* Header */}
-              <div className="bg-primary px-6 pt-8 pb-10 relative overflow-hidden">
+              <div className="bg-slate-800/50 px-6 pt-8 pb-10 relative overflow-hidden border-b border-white/5">
                 {/* Decorative ring */}
                 <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-secondary/10 pointer-events-none" />
                 <div className="absolute -bottom-6 -left-6 w-28 h-28 rounded-full bg-white/5 pointer-events-none" />
 
-                <button
-                  onClick={onClose}
-                  className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
-                  aria-label="Close"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+
 
                 <div className="flex items-center gap-4 relative z-10">
-                  <div className="p-4 rounded-2xl bg-secondary/20 text-secondary shrink-0">
+                  <div className="p-4 rounded-2xl bg-blue-500/20 text-blue-400 shrink-0">
                     <BookOpen className="w-8 h-8" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h2 className="text-xl font-amiri font-bold text-white leading-tight line-clamp-2">
+                    <h2 className="text-xl font-amiri font-bold text-slate-200 leading-tight line-clamp-2">
                       {book.title}
                     </h2>
-                    <p className="text-cream/70 text-sm font-medium mt-1 truncate">{book.author}</p>
+                    <p className="text-slate-400 text-sm font-medium mt-1 truncate">{book.author}</p>
                   </div>
                 </div>
 
@@ -170,14 +164,9 @@ export default function BookDetailModal({ book, onClose, onOrder, onCancel, orde
                 </div>
               </div>
 
-              {/* Scallop divider */}
-              <div className="relative h-5 bg-primary">
-                <div className="absolute inset-x-0 bottom-0 h-5 bg-white rounded-t-[2rem]" />
-              </div>
-
               {/* Body */}
               <div className="px-6 pb-6 flex-1 overflow-y-auto">
-                <div className="divide-y divide-secondary/8">
+                <div className="divide-y divide-white/5">
                   <InfoRow
                     icon={<User className="w-4 h-4" />}
                     label="Author"
@@ -212,7 +201,7 @@ export default function BookDetailModal({ book, onClose, onOrder, onCancel, orde
                       icon={<Hash className="w-4 h-4" />}
                       label="Book ID"
                       value={
-                        <span className="font-mono text-xs bg-cream px-2 py-0.5 rounded-lg">
+                        <span className="font-mono text-xs bg-slate-800 text-slate-300 border border-white/10 px-2 py-0.5 rounded-lg">
                           {book.book_id}
                         </span>
                       }
@@ -228,7 +217,7 @@ export default function BookDetailModal({ book, onClose, onOrder, onCancel, orde
                       disabled={!isAvailable || ordering}
                       className={`w-full py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-sm
                         ${isAvailable
-                          ? 'bg-primary text-secondary hover:bg-secondary hover:text-primary active:scale-95 hover:shadow-lg'
+                          ? 'bg-blue-600 text-white hover:bg-blue-500 active:scale-95 shadow-lg shadow-blue-500/20'
                           : 'hidden'
                         }`}
                     >
@@ -241,7 +230,7 @@ export default function BookDetailModal({ book, onClose, onOrder, onCancel, orde
                     <button
                       onClick={() => onCancel(bookId)}
                       disabled={ordering}
-                      className="w-full py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-sm bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 active:scale-95 border border-red-200"
+                      className="w-full py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-sm bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500 hover:text-white active:scale-95"
                     >
                       <X className="w-4 h-4" />
                       {ordering ? 'Processing...' : 'Cancel Order'}
@@ -249,7 +238,7 @@ export default function BookDetailModal({ book, onClose, onOrder, onCancel, orde
                   ) : !isAvailable ? (
                     <button
                       disabled
-                      className="w-full py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-sm bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200"
+                      className="w-full py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-sm bg-slate-800/50 text-slate-500 border border-white/5 cursor-not-allowed"
                     >
                       <BookMarked className="w-4 h-4" />
                       Book Unavailable
@@ -258,7 +247,7 @@ export default function BookDetailModal({ book, onClose, onOrder, onCancel, orde
 
                   <button
                     onClick={onClose}
-                    className="w-full py-3 rounded-2xl font-bold text-sm border border-secondary/20 text-primary/60 hover:bg-cream hover:text-primary transition-all"
+                    className="w-full py-3 rounded-2xl font-bold text-sm border border-white/10 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all"
                   >
                     Close
                   </button>

@@ -20,7 +20,7 @@ import {
 import { useRouter } from 'next/navigation';
 
 const CATEGORY_CONFIG = [
-  { name: 'Religion', icon: Book, color: 'bg-emerald-800' },
+  { name: 'Religion', icon: Book, color: 'bg-green-800' },
   { name: 'Study', icon: GraduationCap, color: 'bg-blue-800' },
   { name: 'Literature', icon: PenTool, color: 'bg-amber-800' },
   { name: 'Motivation & Psychology', icon: Brain, color: 'bg-purple-800' },

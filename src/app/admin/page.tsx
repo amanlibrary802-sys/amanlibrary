@@ -229,19 +229,19 @@ export default function AdminOverview() {
   };
 
   const statCards = [
-    { label: 'Total Books', value: stats.total, icon: Library, color: 'text-primary bg-primary/5', href: '/admin/books' },
-    { label: 'Available', value: stats.available, icon: BookOpen, color: 'text-green-600 bg-green-50', href: '/admin/books' },
-    { label: 'Ordered', value: stats.ordered, icon: ShoppingCart, color: 'text-amber-600 bg-amber-50', href: '/admin/orders' },
-    { label: 'Issued', value: stats.issued, icon: Users, color: 'text-blue-600 bg-blue-50', href: '/admin/loans' },
+    { label: 'Total Books', value: stats.total, icon: Library, color: 'text-blue-400 bg-blue-500/10', href: '/admin/books' },
+    { label: 'Available', value: stats.available, icon: BookOpen, color: 'text-green-400 bg-green-500/10', href: '/admin/books' },
+    { label: 'Ordered', value: stats.ordered, icon: ShoppingCart, color: 'text-amber-400 bg-amber-500/10', href: '/admin/orders' },
+    { label: 'Issued', value: stats.issued, icon: Users, color: 'text-cyan-400 bg-cyan-500/10', href: '/admin/loans' },
   ];
 
-  if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-primary" /></div>;
+  if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-slate-200" /></div>;
 
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="text-4xl font-amiri font-bold text-primary mb-2">Library Overview</h1>
-        <p className="text-primary/60 font-medium">Real-time status of Aman Library collection.</p>
+        <h1 className="text-4xl font-amiri font-bold text-slate-200 mb-2">Library Overview</h1>
+        <p className="text-slate-400 font-medium">Real-time status of Aman Library collection.</p>
       </div>
 
       {/* Stats Grid — 2 cols on mobile, 4 on desktop */}
@@ -252,26 +252,26 @@ export default function AdminOverview() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white p-4 sm:p-6 rounded-3xl border border-secondary/10 shadow-sm hover:shadow-md hover:border-secondary/30 transition-all duration-300 ease-in-out cursor-pointer h-full"
+              className="bg-slate-900 p-4 sm:p-6 rounded-3xl border border-white/5 shadow-sm hover:shadow-md hover:border-secondary/30 transition-all duration-300 ease-in-out cursor-pointer h-full"
             >
               <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl ${stat.color} flex items-center justify-center mb-3 sm:mb-4`}>
                 <stat.icon className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <p className="text-[9px] sm:text-[10px] uppercase font-bold text-primary/40 tracking-widest mb-1">{stat.label}</p>
-              <h3 className="text-2xl sm:text-3xl font-bold text-primary">{stat.value}</h3>
+              <p className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 tracking-widest mb-1">{stat.label}</p>
+              <h3 className="text-2xl sm:text-3xl font-bold text-slate-200">{stat.value}</h3>
             </motion.div>
           </Link>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
         {/* Left Column: Category Breakdown & Events */}
-        <div className="space-y-8">
+        <div className="flex flex-col gap-8 h-full">
           {/* Category Breakdown */}
-          <section className="bg-white rounded-3xl border border-secondary/10 shadow-sm p-5 sm:p-8">
+          <section className="bg-slate-900 rounded-3xl border border-white/5 shadow-sm p-5 sm:p-8 flex-none">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 sm:mb-8">
-              <h2 className="text-2xl font-amiri font-bold text-primary">Category Breakdown</h2>
-              <div className="flex items-center gap-2 text-primary/40 text-[10px] sm:text-xs font-bold bg-cream px-3 py-1.5 rounded-full uppercase shrink-0">
+              <h2 className="text-2xl font-amiri font-bold text-slate-200">Category Breakdown</h2>
+              <div className="flex items-center gap-2 text-slate-400 text-[10px] sm:text-xs font-bold bg-slate-800 px-3 py-1.5 rounded-full uppercase shrink-0">
                 <TrendingUp className="w-3 h-3" />
                 Stock Levels
               </div>
@@ -281,10 +281,10 @@ export default function AdminOverview() {
               {categoryStats.map((cat) => (
                 <div key={cat.name} className="group cursor-pointer">
                   <div className="flex justify-between items-center mb-1.5 sm:mb-2">
-                    <span className="font-bold text-[13px] sm:text-sm text-primary truncate mr-4">{cat.name}</span>
-                    <span className="text-[11px] sm:text-xs font-bold text-primary/40 whitespace-nowrap">{cat.count} Books</span>
+                    <span className="font-bold text-[13px] sm:text-sm text-slate-200 truncate mr-4">{cat.name}</span>
+                    <span className="text-[11px] sm:text-xs font-bold text-slate-400 whitespace-nowrap">{cat.count} Books</span>
                   </div>
-                  <div className="h-1.5 sm:h-2 w-full bg-cream rounded-full overflow-hidden">
+                  <div className="h-1.5 sm:h-2 w-full bg-slate-800 rounded-full overflow-hidden">
                     <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: `${(cat.count / stats.total) * 100}%` }}
@@ -297,15 +297,15 @@ export default function AdminOverview() {
           </section>
 
           {/* Library Events Section */}
-          <section className="bg-white rounded-3xl border border-secondary/10 shadow-sm p-5 sm:p-8">
+          <section className="bg-slate-900 rounded-3xl border border-white/5 shadow-sm p-5 sm:p-8 flex-1 flex flex-col">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
               <div>
-                <h2 className="text-2xl font-amiri font-bold text-primary">Library Events</h2>
-                <p className="text-xs text-primary/40 mt-1">Schedule and monitor library meetings and programs.</p>
+                <h2 className="text-2xl font-amiri font-bold text-slate-200">Library Events</h2>
+                <p className="text-xs text-slate-400 mt-1">Schedule and monitor library meetings and programs.</p>
               </div>
               <button
                 onClick={() => setShowAddEvent(!showAddEvent)}
-                className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-3 sm:py-2 bg-primary text-secondary hover:bg-secondary hover:text-primary rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 shrink-0"
+                className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-3 sm:py-2 bg-slate-800 text-white border border-white/10 hover:bg-slate-700 hover:bg-slate-700 hover:text-slate-200 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 shrink-0"
               >
                 <Plus className="w-3.5 h-3.5" />
                 {showAddEvent ? 'CANCEL' : 'ADD EVENT'}
@@ -317,61 +317,61 @@ export default function AdminOverview() {
               <motion.form 
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-cream/40 border border-secondary/10 rounded-2xl p-5 mb-6 space-y-4"
+                className="bg-slate-800/50 border border-white/5 rounded-2xl p-5 mb-6 space-y-4"
                 onSubmit={handleAddEvent}
               >
-                <h3 className="text-xs font-bold text-primary uppercase tracking-widest">Create New Event</h3>
+                <h3 className="text-xs font-bold text-slate-200 uppercase tracking-widest">Create New Event</h3>
                 
                 <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-primary/50 uppercase tracking-widest">Event Title</label>
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Event Title</label>
                   <input
                     required
                     type="text"
                     placeholder="e.g. Weekly Reader Circle Meetup"
                     value={newEvent.title}
                     onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
-                    className="w-full bg-white border border-secondary/20 rounded-xl py-2 px-3.5 text-xs text-primary focus:outline-none focus:ring-2 focus:ring-secondary/40 focus:border-secondary/40 transition-all font-medium"
+                    className="w-full bg-slate-900 border border-white/10 rounded-xl py-2 px-3.5 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-secondary/40 focus:border-secondary/40 transition-all font-medium"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold text-primary/50 uppercase tracking-widest">Date</label>
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Date</label>
                     <input
                       required
                       type="date"
                       value={newEvent.date}
                       onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
-                      className="w-full bg-white border border-secondary/20 rounded-xl py-2 px-3.5 text-xs text-primary focus:outline-none focus:ring-2 focus:ring-secondary/40 focus:border-secondary/40 transition-all font-medium"
+                      className="w-full bg-slate-900 border border-white/10 rounded-xl py-2 px-3.5 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-secondary/40 focus:border-secondary/40 transition-all font-medium"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold text-primary/50 uppercase tracking-widest">Time</label>
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Time</label>
                     <input
                       required
                       type="text"
                       placeholder="e.g. 04:30 PM"
                       value={newEvent.time}
                       onChange={(e) => setNewEvent({ ...newEvent, time: e.target.value })}
-                      className="w-full bg-white border border-secondary/20 rounded-xl py-2 px-3.5 text-xs text-primary focus:outline-none focus:ring-2 focus:ring-secondary/40 focus:border-secondary/40 transition-all font-medium"
+                      className="w-full bg-slate-900 border border-white/10 rounded-xl py-2 px-3.5 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-secondary/40 focus:border-secondary/40 transition-all font-medium"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-primary/50 uppercase tracking-widest">Description</label>
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Description</label>
                   <input
                     type="text"
                     placeholder="Brief details about the program..."
                     value={newEvent.description}
                     onChange={(e) => setNewEvent({ ...newEvent, description: e.target.value })}
-                    className="w-full bg-white border border-secondary/20 rounded-xl py-2 px-3.5 text-xs text-primary focus:outline-none focus:ring-2 focus:ring-secondary/40 focus:border-secondary/40 transition-all font-medium"
+                    className="w-full bg-slate-900 border border-white/10 rounded-xl py-2 px-3.5 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-secondary/40 focus:border-secondary/40 transition-all font-medium"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-primary text-secondary py-2.5 rounded-xl text-xs font-bold hover:bg-secondary hover:text-primary transition-all active:scale-95 shadow-sm"
+                  className="w-full bg-slate-800 text-white border border-white/10 hover:bg-slate-700 py-2.5 rounded-xl text-xs font-bold hover:bg-slate-700 hover:text-slate-200 transition-all active:scale-95 shadow-sm"
                 >
                   SAVE EVENT
                 </button>
@@ -379,7 +379,7 @@ export default function AdminOverview() {
             )}
 
             {/* Event Tabs */}
-            <div className="flex p-1 bg-cream rounded-xl border border-secondary/10 mb-6 w-full">
+            <div className="flex p-1 bg-slate-800 rounded-xl border border-white/5 mb-6 w-full">
               {(['upcoming', 'completed'] as const).map((tab) => {
                 const count = tab === 'upcoming' 
                   ? upcomingEvents.length 
@@ -390,8 +390,8 @@ export default function AdminOverview() {
                     onClick={() => setActiveEventTab(tab)}
                     className={`flex-1 py-2 rounded-lg font-bold text-[10px] uppercase tracking-wider transition-all ${
                       activeEventTab === tab 
-                        ? 'bg-primary text-secondary shadow-sm' 
-                        : 'text-primary/40 hover:text-primary'
+                        ? 'bg-slate-800 text-white border border-white/10 hover:bg-slate-700 shadow-sm' 
+                        : 'text-slate-400 hover:text-slate-200'
                     }`}
                   >
                     {tab} ({count})
@@ -401,7 +401,7 @@ export default function AdminOverview() {
             </div>
 
             {/* Event List */}
-            <div className="space-y-3 max-h-[320px] overflow-y-auto pr-1">
+            <div className="space-y-3 flex-1 overflow-y-auto pr-1 min-h-[200px] custom-scrollbar">
               {(() => {
                 const currentTabEvents = activeEventTab === 'upcoming' 
                   ? upcomingEvents 
@@ -409,7 +409,7 @@ export default function AdminOverview() {
 
                 if (currentTabEvents.length === 0) {
                   return (
-                    <div className="py-12 text-center text-primary/30 font-bold italic text-xs">
+                    <div className="py-12 text-center text-slate-400 font-bold italic text-xs">
                       No {activeEventTab} events found.
                     </div>
                   );
@@ -419,42 +419,42 @@ export default function AdminOverview() {
                   <motion.div
                     key={event.id}
                     layoutId={event.id}
-                    className="bg-cream/20 border border-secondary/5 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 hover:border-secondary/20 transition-all group"
+                    className="bg-slate-800/50 border border-white/5 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 hover:border-white/10 transition-all group"
                   >
                     <div className="flex items-start gap-3 w-full sm:w-auto flex-1 min-w-0">
                       <div className={`p-2.5 rounded-xl shrink-0 mt-1 sm:mt-0 ${
                         event.completed 
-                          ? 'bg-green-50 text-green-600 border border-green-100' 
-                          : 'bg-amber-50 text-amber-600 border border-amber-100'
+                          ? 'bg-green-500/10 text-green-400 border border-green-500/20' 
+                          : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                       }`}>
                         {event.completed ? <Check className="w-4 h-4" /> : <Calendar className="w-4 h-4" />}
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <h4 className={`text-sm font-bold text-primary leading-snug ${event.completed ? 'line-through opacity-50' : ''}`}>
+                        <h4 className={`text-sm font-bold text-slate-200 leading-snug ${event.completed ? 'line-through opacity-50' : ''}`}>
                           {event.title}
                         </h4>
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-primary/50 font-bold uppercase mt-1">
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-slate-400 font-bold uppercase mt-1">
                           <span className="flex items-center gap-1">
-                            <Clock className="w-3.5 h-3.5 text-secondary" />
+                            <Clock className="w-3.5 h-3.5 text-blue-400" />
                             {event.time}
                           </span>
                           <span>•</span>
                           <span>{formatDate(event.date)}</span>
                         </div>
                         {event.description && (
-                          <p className="text-xs text-primary/60 mt-1.5 leading-relaxed">
+                          <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
                             {event.description}
                           </p>
                         )}
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2 self-end sm:self-auto w-full sm:w-auto justify-end mt-2 sm:mt-0 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity pt-2 sm:pt-0 border-t border-secondary/10 sm:border-t-0 mt-3 sm:mt-0">
+                    <div className="flex items-center gap-2 self-end sm:self-auto w-full sm:w-auto justify-end mt-2 sm:mt-0 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity pt-2 sm:pt-0 border-t border-white/5 sm:border-t-0 mt-3 sm:mt-0">
                       {!event.completed && (
                         <button
                           onClick={() => handleToggleComplete(event.id)}
-                          className="flex items-center justify-center gap-1.5 px-4 py-2 sm:px-3 sm:py-2 rounded-xl bg-green-50 text-green-600 border border-green-100 hover:bg-green-600 hover:text-white font-bold text-[10px] sm:text-xs transition-colors shadow-sm flex-1 sm:flex-none"
+                          className="flex items-center justify-center gap-1.5 px-4 py-2 sm:px-3 sm:py-2 rounded-xl bg-green-500/10 text-green-400 border border-green-500/20 hover:bg-green-600 hover:text-white font-bold text-[10px] sm:text-xs transition-colors shadow-sm flex-1 sm:flex-none"
                         >
                           <CheckCircle2 className="w-3.5 h-3.5" />
                           MARK DONE
@@ -463,7 +463,7 @@ export default function AdminOverview() {
                       {event.completed && (
                         <button
                           onClick={() => handleToggleComplete(event.id)}
-                          className="flex items-center justify-center gap-1.5 px-4 py-2 sm:px-3 sm:py-2 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 hover:bg-amber-600 hover:text-white font-bold text-[10px] sm:text-xs transition-colors shadow-sm flex-1 sm:flex-none"
+                          className="flex items-center justify-center gap-1.5 px-4 py-2 sm:px-3 sm:py-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-600 hover:text-white font-bold text-[10px] sm:text-xs transition-colors shadow-sm flex-1 sm:flex-none"
                         >
                           <RotateCcw className="w-3.5 h-3.5" />
                           RESTORE
@@ -471,7 +471,7 @@ export default function AdminOverview() {
                       )}
                       <button
                         onClick={() => handleDeleteEvent(event.id)}
-                        className="p-2 rounded-xl bg-red-50 text-red-500 border border-red-100 hover:bg-red-500 hover:text-white transition-colors shadow-sm shrink-0"
+                        className="w-8 h-8 flex items-center justify-center rounded-full bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500 hover:text-white transition-colors shadow-sm shrink-0 hover:scale-110 active:scale-95"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -484,24 +484,24 @@ export default function AdminOverview() {
         </div>
 
         {/* Right Column: Top Readers & Recent Activity */}
-        <section className="space-y-6">
-          <div className="bg-primary text-secondary p-5 sm:p-8 rounded-3xl relative overflow-hidden group">
+        <div className="flex flex-col gap-8 h-full">
+          <div className="bg-slate-900 rounded-3xl border border-white/5 shadow-sm p-5 sm:p-8 relative overflow-hidden group flex-none">
             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/islamic-art.png')] pointer-events-none" />
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-5 sm:mb-6">
-                <h3 className="text-xl sm:text-2xl font-amiri font-bold">
+                <h3 className="text-xl sm:text-2xl font-amiri font-bold text-slate-200">
                   {rankType === 'top' ? 'Top Readers' : 'Least Active'}
                 </h3>
-                <div className="flex bg-white/10 p-1 rounded-xl shrink-0">
+                <div className="flex bg-slate-900/10 p-1 rounded-xl shrink-0">
                   <button 
                     onClick={() => setRankType('top')}
-                    className={`px-3 py-1 rounded-lg text-[9px] sm:text-[10px] font-black transition-all ${rankType === 'top' ? 'bg-secondary text-primary shadow-lg' : 'text-secondary/40 hover:text-secondary'}`}
+                    className={`px-3 py-1 rounded-lg text-[9px] sm:text-[10px] font-black transition-all ${rankType === 'top' ? 'bg-secondary text-slate-200 shadow-lg' : 'text-blue-400/40 hover:text-blue-400'}`}
                   >
                     TOP
                   </button>
                   <button 
                     onClick={() => setRankType('least')}
-                    className={`px-3 py-1 rounded-lg text-[9px] sm:text-[10px] font-black transition-all ${rankType === 'least' ? 'bg-secondary text-primary shadow-lg' : 'text-secondary/40 hover:text-secondary'}`}
+                    className={`px-3 py-1 rounded-lg text-[9px] sm:text-[10px] font-black transition-all ${rankType === 'least' ? 'bg-secondary text-slate-200 shadow-lg' : 'text-blue-400/40 hover:text-blue-400'}`}
                   >
                     LEAST
                   </button>
@@ -510,28 +510,28 @@ export default function AdminOverview() {
               
               <div className="space-y-2.5 sm:space-y-4">
                 {(rankType === 'top' ? topReaders : leastActive).map((reader, i) => (
-                  <div key={reader.id} className="flex items-center justify-between bg-white/5 p-2 sm:p-3 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                  <div key={reader.id} className="flex items-center justify-between bg-slate-800/50 p-2 sm:p-3 rounded-xl border border-white/5 hover:bg-slate-800 transition-colors">
                     <div className="flex items-center gap-2.5 sm:gap-3">
                       <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-lg flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${
                         rankType === 'top' ? (
-                          i === 0 ? 'bg-amber-400 text-primary' : 
-                          i === 1 ? 'bg-slate-300 text-primary' : 
+                          i === 0 ? 'bg-amber-400 text-slate-200' : 
+                          i === 1 ? 'bg-slate-300 text-slate-200' : 
                           i === 2 ? 'bg-amber-700 text-white' : 
-                          'bg-white/10 text-secondary'
+                          'bg-slate-900/10 text-blue-400'
                         ) : 'bg-red-400/20 text-red-200'
                       }`}>
                         {i + 1}
                       </div>
                       <div className="flex flex-col min-w-0">
-                        <span className="text-[13px] sm:text-sm font-bold truncate max-w-[120px] sm:max-w-[150px] capitalize leading-snug">{reader.name}</span>
-                        <span className="text-[8px] sm:text-[9px] text-white/40 font-bold uppercase tracking-wider truncate max-w-[120px] sm:max-w-[150px]">
+                        <span className="text-[13px] sm:text-sm font-bold truncate max-w-[120px] sm:max-w-[150px] capitalize leading-snug text-slate-200">{reader.name}</span>
+                        <span className="text-[8px] sm:text-[9px] text-slate-400 font-bold uppercase tracking-wider truncate max-w-[120px] sm:max-w-[150px]">
                           {reader.batch}
                         </span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-bold text-secondary/60">
+                    <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-bold text-blue-400/60">
                       {rankType === 'top' ? (
-                        <Medal className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-secondary/40" />
+                        <Medal className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400/40" />
                       ) : (
                         <Frown className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-red-400/40" />
                       )}
@@ -540,7 +540,7 @@ export default function AdminOverview() {
                   </div>
                 ))}
                 {(rankType === 'top' ? topReaders : leastActive).length === 0 && (
-                  <p className="text-center py-6 text-secondary/30 font-bold italic">
+                  <p className="text-center py-6 text-blue-400/30 font-bold italic">
                     {rankType === 'top' ? 'No ranking data available yet—start issuing books!' : 'All students are currently active!'}
                   </p>
                 )}
@@ -548,33 +548,33 @@ export default function AdminOverview() {
             </div>
           </div>
 
-          <div className="bg-white rounded-3xl border border-secondary/10 shadow-sm p-8">
-            <h3 className="text-xl font-amiri font-bold text-primary mb-6">Recent Activity</h3>
-            <div className="space-y-6">
+          <div className="bg-slate-900 rounded-3xl border border-white/5 shadow-sm p-5 sm:p-8 flex-1 flex flex-col">
+            <h3 className="text-xl font-amiri font-bold text-slate-200 mb-6">Recent Activity</h3>
+            <div className="space-y-6 flex-1 overflow-y-auto pr-1 min-h-[200px] custom-scrollbar">
               {recentActivity.map((activity, i) => (
                 <div key={activity.transaction_id} className="flex items-center gap-4 group">
-                  <div className="w-10 h-10 rounded-xl bg-cream flex items-center justify-center text-secondary">
+                  <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-blue-400">
                     <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-[13px] font-bold text-primary">
-                      <span className="text-secondary mr-2 uppercase text-[10px] tracking-wider">
+                    <p className="text-[13px] font-bold text-slate-200">
+                      <span className="text-blue-400 mr-2 uppercase text-[10px] tracking-wider">
                         {activity.status === 'Reserved' ? 'Ordered' : activity.status === 'Issued' ? 'Issued' : 'Returned'}
                       </span>
                       {activity.books?.title}
                     </p>
-                    <p className="text-[10px] text-primary/40 font-bold uppercase tracking-widest mt-0.5">
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">
                       {activity.students?.name} • {formatDate(activity.created_at)}
                     </p>
                   </div>
                 </div>
               ))}
               {recentActivity.length === 0 && (
-                <p className="text-center py-10 text-primary/30 font-bold">No recent activity found.</p>
+                <p className="text-center py-10 text-slate-400 font-bold">No recent activity found.</p>
               )}
             </div>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   );

@@ -276,20 +276,21 @@ export default function BookManagement() {
     const catMatch =
       selectedCategory === 'All' ||
       (b.category || '').toLowerCase() === selectedCategory.toLowerCase();
+    const q = search.toLowerCase().trim();
     const searchMatch =
-      (b.title || '').toLowerCase().includes(search.toLowerCase()) ||
-      (b.author || '').toLowerCase().includes(search.toLowerCase()) ||
-      (b.shelf_loc || '').toLowerCase().includes(search.toLowerCase());
+      (b.title || '').toLowerCase().includes(q) ||
+      (b.author || '').toLowerCase().includes(q) ||
+      formatShelfLoc(b.shelf_loc, b.category || '').toLowerCase().includes(q);
     return catMatch && searchMatch;
   });
 
-  if (search) {
-    const q = search.toLowerCase();
+  if (search.trim()) {
+    const q = search.toLowerCase().trim();
     filteredBooks.sort((a, b) => {
       const getScore = (item: any) => {
         const title = (item.title || '').toLowerCase();
         const author = (item.author || '').toLowerCase();
-        const loc = (item.shelf_loc || '').toLowerCase();
+        const loc = formatShelfLoc(item.shelf_loc, item.category || '').toLowerCase();
         
         if (title === q || loc === q) return 100;
         if (author === q) return 90;
@@ -312,15 +313,15 @@ export default function BookManagement() {
     <div className="space-y-10">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-          <h1 className="text-4xl font-amiri font-bold text-primary mb-2">Book Management</h1>
-          <p className="text-primary/60 font-medium">Add, update or remove books from the library.</p>
+          <h1 className="text-4xl font-amiri font-bold text-slate-200 mb-2">Book Management</h1>
+          <p className="text-slate-400 font-medium">Add, update or remove books from the library.</p>
         </div>
         <div className="flex gap-2 sm:gap-3 w-full md:w-auto mt-4 md:mt-0">
           <button
             onClick={() => setIsBulkModalOpen(true)}
-            className="flex-1 md:flex-none bg-cream text-primary border border-secondary/20 px-3 py-3 sm:px-6 sm:py-4 rounded-xl sm:rounded-2xl font-bold hover:bg-secondary/10 transition-all shadow-sm flex items-center justify-center gap-1.5 sm:gap-2 group text-xs sm:text-base"
+            className="flex-1 md:flex-none bg-slate-800 text-slate-200 border border-white/10 px-3 py-3 sm:px-6 sm:py-4 rounded-xl sm:rounded-2xl font-bold hover:bg-slate-700/10 transition-all shadow-sm flex items-center justify-center gap-1.5 sm:gap-2 group text-xs sm:text-base"
           >
-            <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-secondary" />
+            <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
             BULK ADD
           </button>
           <button
@@ -329,7 +330,7 @@ export default function BookManagement() {
               setFormData({ title: '', author: '', category: 'Religion', shelf_loc: getNextShelfLoc('Religion', books), total_copies: 1 });
               setIsModalOpen(true);
             }}
-            className="flex-1 md:flex-none bg-primary text-secondary px-3 py-3 sm:px-6 sm:py-4 rounded-xl sm:rounded-2xl font-bold hover:scale-105 transition-all shadow-lg flex items-center justify-center gap-1.5 sm:gap-2 group text-xs sm:text-base"
+            className="flex-1 md:flex-none bg-slate-800 text-white border border-white/10 hover:bg-slate-700 px-3 py-3 sm:px-6 sm:py-4 rounded-xl sm:rounded-2xl font-bold hover:scale-105 transition-all shadow-lg flex items-center justify-center gap-1.5 sm:gap-2 group text-xs sm:text-base"
           >
             <Plus className="w-4 h-4 sm:w-5 sm:h-5 group-hover:rotate-90 transition-transform" />
             ADD NEW
@@ -341,25 +342,25 @@ export default function BookManagement() {
       {/* Search Bar & Filters */}
       <div className="flex flex-col md:flex-row gap-4">
         <div className="relative group flex-1">
-          <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-primary/30 group-focus-within:text-secondary transition-colors" />
+          <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-400 transition-colors" />
           <input
             type="text"
             placeholder="Search by title, author, or location (e.g. R1, L45, S30)..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-white border border-secondary/20 rounded-2xl py-4 pl-16 pr-8 text-primary focus:outline-none focus:ring-2 focus:ring-secondary/50 shadow-sm transition-all text-base font-medium"
+            className="w-full bg-slate-900 border border-white/10 rounded-2xl py-4 pl-16 pr-8 text-slate-200 focus:outline-none focus:ring-2 focus:ring-secondary/50 shadow-sm transition-all text-base font-medium"
           />
         </div>
 
         <div className="relative self-start md:self-auto w-auto md:w-64 shrink-0" ref={dropdownRef}>
           <button
             onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
-            className="w-full bg-white border border-secondary/20 rounded-2xl py-4 pl-6 pr-12 text-primary focus:outline-none focus:ring-2 focus:ring-secondary/50 shadow-sm transition-all text-left flex items-center justify-between h-full font-bold text-sm"
+            className="w-full bg-slate-900 border border-white/10 rounded-2xl py-4 pl-6 pr-12 text-slate-200 focus:outline-none focus:ring-2 focus:ring-secondary/50 shadow-sm transition-all text-left flex items-center justify-between h-full font-bold text-sm"
           >
             <span className="truncate">
               {selectedCategory === 'All' ? 'All Categories' : selectedCategory}
             </span>
-            <ChevronDown className={`absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary/40 transition-transform ${isCategoryDropdownOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 transition-transform ${isCategoryDropdownOpen ? 'rotate-180' : ''}`} />
           </button>
           
           <AnimatePresence>
@@ -369,12 +370,12 @@ export default function BookManagement() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.15 }}
-                className="absolute z-50 w-full mt-2 bg-white border border-secondary/20 rounded-2xl shadow-xl overflow-hidden py-2"
+                className="absolute z-50 w-full mt-2 bg-slate-900 border border-white/10 rounded-2xl shadow-xl overflow-hidden py-2"
               >
                 <div className="max-h-60 overflow-y-auto custom-scrollbar">
                   <button
                     onClick={() => { setSelectedCategory('All'); setIsCategoryDropdownOpen(false); }}
-                    className={`w-full text-left px-5 py-3 text-sm font-bold transition-colors ${selectedCategory === 'All' ? 'bg-secondary/10 text-secondary' : 'text-primary/70 hover:bg-cream hover:text-primary'}`}
+                    className={`w-full text-left px-5 py-3 text-sm font-bold transition-colors ${selectedCategory === 'All' ? 'bg-secondary/10 text-blue-400' : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'}`}
                   >
                     All Categories
                   </button>
@@ -382,7 +383,7 @@ export default function BookManagement() {
                     <button
                       key={cat}
                       onClick={() => { setSelectedCategory(cat); setIsCategoryDropdownOpen(false); }}
-                      className={`w-full text-left px-5 py-3 text-sm font-bold transition-colors ${selectedCategory === cat ? 'bg-secondary/10 text-secondary' : 'text-primary/70 hover:bg-cream hover:text-primary'}`}
+                      className={`w-full text-left px-5 py-3 text-sm font-bold transition-colors ${selectedCategory === cat ? 'bg-secondary/10 text-blue-400' : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'}`}
                     >
                       {cat}
                     </button>
@@ -395,31 +396,31 @@ export default function BookManagement() {
       </div>
 
       {/* Books Table — card layout on mobile */}
-      <div className="bg-white rounded-3xl border border-secondary/10 shadow-sm overflow-hidden mobile-card-table-wrapper">
+      <div className="bg-slate-900 rounded-3xl border border-white/5 shadow-sm overflow-hidden mobile-card-table-wrapper">
         <table className="w-full text-left mobile-card-table">
-          <thead className="bg-cream border-b border-secondary/10">
+          <thead className="bg-slate-800 border-b border-white/5">
             <tr>
-              <th className="px-8 py-5 text-xs font-bold text-primary/40 uppercase tracking-widest">Book Info</th>
-              <th className="px-8 py-5 text-xs font-bold text-primary/40 uppercase tracking-widest">Category</th>
-              <th className="px-8 py-5 text-xs font-bold text-primary/40 uppercase tracking-widest whitespace-nowrap">Location</th>
-              <th className="px-8 py-5 text-xs font-bold text-primary/40 uppercase tracking-widest whitespace-nowrap">Status</th>
-              <th className="px-8 py-5 text-xs font-bold text-primary/40 uppercase tracking-widest text-right">Actions</th>
+              <th className="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest w-[35%]">Book Info</th>
+              <th className="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest w-[25%] min-w-[160px]">Category</th>
+              <th className="px-4 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap w-[10%] text-center">Location</th>
+              <th className="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap w-[15%]">Status</th>
+              <th className="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest text-right w-[15%]">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-secondary/5">
+          <tbody className="divide-y divide-white/5">
             {filteredBooks.map((book) => (
-              <tr key={book.book_id} className="hover:bg-cream/30 transition-colors group">
+              <tr key={book.book_id} className="hover:bg-slate-800/ transition-colors group">
                 <td className="px-8 py-6" data-label="Book Info">
-                  <div className="text-[13px] font-bold text-primary group-hover:text-secondary transition-colors" title={book.title}>
+                  <div className="text-[13px] font-bold text-slate-200 group-hover:text-blue-400 transition-colors" title={book.title}>
                     {book.title}
                   </div>
-                  <div className="text-[10px] text-primary/30 font-bold uppercase tracking-widest mt-0.5">{book.author}</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">{book.author}</div>
                 </td>
                 <td className="px-8 py-6" data-label="Category">
-                  <span className="text-sm font-bold text-primary/60">{book.category}</span>
+                  <span className="text-sm font-bold text-slate-400">{book.category}</span>
                 </td>
-                <td className="px-8 py-6 whitespace-nowrap" data-label="Location">
-                  <span className="bg-cream px-3 py-1 rounded-lg border border-secondary/10 text-[10px] font-bold text-primary/40 uppercase">
+                <td className="px-4 py-6 whitespace-nowrap text-center" data-label="Location">
+                  <span className="bg-slate-800 px-3 py-1 rounded-lg border border-white/5 text-[10px] font-bold text-slate-400 uppercase">
                     {formatShelfLoc(book.shelf_loc, book.category)}
                   </span>
                 </td>
@@ -446,7 +447,7 @@ export default function BookManagement() {
                         });
                         setIsModalOpen(true);
                       }}
-                      className="p-2.5 rounded-xl bg-primary/5 text-primary hover:bg-primary hover:text-secondary transition-all"
+                      className="w-8 h-8 flex items-center justify-center shrink-0 rounded-full bg-blue-500/10 text-blue-400 hover:bg-blue-500 hover:text-white transition-all hover:scale-110 active:scale-95"
                     >
                       <Edit2 className="w-4 h-4" />
                     </button>
@@ -462,7 +463,7 @@ export default function BookManagement() {
                           }, 3000);
                         }
                       }}
-                      className={`p-2.5 rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2 overflow-hidden ${confirmDeleteId === book.book_id ? 'bg-red-50 text-red-600 ring-2 ring-black' : 'bg-red-50 text-red-400 hover:bg-red-500 hover:text-white'}`}
+                      className={`h-8 min-w-[32px] rounded-full transition-all disabled:opacity-50 flex items-center justify-center overflow-hidden hover:scale-110 active:scale-95 ${confirmDeleteId === book.book_id ? 'bg-red-500/20 text-red-400 ring-2 ring-red-500/50 px-3 gap-2' : 'bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white'}`}
                     >
                       {isDeleting === book.book_id ? (
                         <Loader2 className="w-4 h-4 animate-spin shrink-0" />
@@ -490,24 +491,24 @@ export default function BookManagement() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsBulkModalOpen(false)}
-              className="absolute inset-0 bg-primary/40 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden"
+              className="relative w-full max-w-2xl bg-slate-900 rounded-3xl shadow-2xl overflow-hidden"
             >
-              <div className="bg-secondary p-6 flex justify-between items-center text-primary">
+              <div className="bg-secondary p-6 flex justify-between items-center text-slate-200">
                 <h3 className="text-2xl font-amiri font-bold">Bulk Add Books</h3>
-                <button onClick={() => setIsBulkModalOpen(false)} className="text-primary/60 hover:text-primary transition-colors">
+                <button onClick={() => setIsBulkModalOpen(false)} className="text-slate-400 hover:text-slate-200 transition-colors">
                   <X className="w-6 h-6" />
                 </button>
               </div>
 
               <form onSubmit={handleBulkSubmit} className="p-8 space-y-6">
                 <div className="space-y-4">
-                  <div className="bg-cream/50 p-4 rounded-xl text-[10px] font-bold text-primary/60 leading-relaxed uppercase tracking-widest">
+                  <div className="bg-slate-800/50 p-4 rounded-xl text-[10px] font-bold text-slate-400 leading-relaxed uppercase tracking-widest">
                     Format: Title, Author, Category, Shelf Location (one per line)
                     <br />
                     Example: Sahih Bukhari, Imam Bukhari, Religion, A1-02
@@ -518,14 +519,14 @@ export default function BookManagement() {
                     onChange={(e) => setBulkText(e.target.value)}
                     rows={10}
                     placeholder="Enter books here..."
-                    className="w-full bg-cream/30 border border-secondary/20 rounded-2xl py-4 px-6 text-primary focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-medium resize-none"
+                    className="w-full bg-slate-800/50 border border-white/10 rounded-2xl py-4 px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-primary text-secondary py-5 rounded-2xl font-bold text-lg hover:scale-[1.02] active:scale-95 transition-all shadow-xl flex items-center justify-center gap-2"
+                  className="w-full bg-slate-800 text-white border border-white/10 hover:bg-slate-700 py-5 rounded-2xl font-bold text-lg hover:scale-[1.02] active:scale-95 transition-all shadow-xl flex items-center justify-center gap-2"
                 >
                   {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : <Check className="w-6 h-6" />}
                   UPLOAD ALL RECORDS
@@ -545,19 +546,19 @@ export default function BookManagement() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsModalOpen(false)}
-              className="absolute inset-0 bg-primary/40 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden"
+              className="relative w-full max-w-2xl bg-slate-900 rounded-3xl shadow-2xl overflow-hidden"
             >
-              <div className="bg-primary p-6 flex justify-between items-center">
-                <h3 className="text-2xl font-amiri font-bold text-secondary">
+              <div className="bg-slate-800/50 p-6 flex justify-between items-center border-b border-white/5">
+                <h3 className="text-2xl font-amiri font-bold text-slate-200">
                   {editingBook ? 'Edit Book' : 'Add New Book'}
                 </h3>
-                <button onClick={() => setIsModalOpen(false)} className="text-secondary/60 hover:text-secondary transition-colors">
+                <button type="button" onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-200 transition-colors">
                   <X className="w-6 h-6" />
                 </button>
               </div>
@@ -565,24 +566,24 @@ export default function BookManagement() {
               <form onSubmit={handleSubmit} className="p-8 space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-primary/40 uppercase tracking-widest ml-1">Book Title</label>
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Book Title</label>
                     <input
                       required
                       type="text"
                       value={formData.title}
                       onChange={(e) => setFormData({...formData, title: e.target.value})}
-                      className="w-full bg-cream/30 border border-secondary/20 rounded-2xl py-4 px-6 text-primary focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-medium"
+                      className="w-full bg-slate-800/50 border border-white/10 rounded-2xl py-4 px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
                       placeholder="e.g. Sahih al-Bukhari"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-primary/40 uppercase tracking-widest ml-1">Author Name</label>
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Author Name</label>
                     <input
                       required
                       type="text"
                       value={formData.author}
                       onChange={(e) => setFormData({...formData, author: e.target.value})}
-                      className="w-full bg-cream/30 border border-secondary/20 rounded-2xl py-4 px-6 text-primary focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-medium"
+                      className="w-full bg-slate-800/50 border border-white/10 rounded-2xl py-4 px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
                       placeholder="e.g. Imam Bukhari"
                     />
                   </div>
@@ -592,7 +593,7 @@ export default function BookManagement() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-primary/40 uppercase tracking-widest ml-1">Category</label>
+                    <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">Category</label>
                     <div className="relative group">
                       <select
                         value={formData.category}
@@ -612,17 +613,17 @@ export default function BookManagement() {
                             shelf_loc: isAutoLoc ? getNextShelfLoc(newCat, books) : formData.shelf_loc
                           });
                         }}
-                        className="w-full bg-cream/30 border border-secondary/20 rounded-2xl py-4 px-6 text-primary focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-medium appearance-none cursor-pointer"
+                        className="w-full bg-slate-800/50 border border-white/10 rounded-2xl py-4 px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium appearance-none cursor-pointer"
                       >
                         {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                       </select>
-                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-primary/30 pointer-events-none" />
+                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-primary/40 uppercase tracking-widest ml-1">
-                      Shelf Location
-                      <span className="ml-2 text-secondary/60 normal-case font-medium">
+                    <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1 flex flex-col xl:flex-row xl:items-center xl:gap-1">
+                      <span>Shelf Loc</span>
+                      <span className="text-blue-400/60 normal-case">
                         (auto: {CATEGORY_PREFIX[formData.category] ?? formData.category[0]}N)
                       </span>
                     </label>
@@ -630,18 +631,18 @@ export default function BookManagement() {
                       type="text"
                       value={formData.shelf_loc}
                       onChange={(e) => setFormData({...formData, shelf_loc: e.target.value})}
-                      className="w-full bg-cream/30 border border-secondary/20 rounded-2xl py-4 px-6 text-primary focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-medium"
+                      className="w-full bg-slate-800/50 border border-white/10 rounded-2xl py-4 px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
                       placeholder={`e.g. ${CATEGORY_PREFIX[formData.category] ?? formData.category[0]}12`}
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-primary/40 uppercase tracking-widest ml-1">Total Copies</label>
+                    <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">Total Copies</label>
                     <input
                       type="number"
                       min="1"
                       value={formData.total_copies}
                       onChange={(e) => setFormData({...formData, total_copies: parseInt(e.target.value)})}
-                      className="w-full bg-cream/30 border border-secondary/20 rounded-2xl py-4 px-6 text-primary focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-medium"
+                      className="w-full bg-slate-800/50 border border-white/10 rounded-2xl py-4 px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
                     />
                   </div>
                 </div>
@@ -649,7 +650,7 @@ export default function BookManagement() {
                 <div className="pt-4">
                   <button
                     type="submit"
-                    className="w-full bg-primary text-secondary py-5 rounded-2xl font-bold text-lg hover:scale-[1.02] active:scale-95 transition-all shadow-xl flex items-center justify-center gap-2"
+                    className="w-full bg-slate-800 text-white border border-white/10 hover:bg-slate-700 py-5 rounded-2xl font-bold text-lg hover:scale-[1.02] active:scale-95 transition-all shadow-xl flex items-center justify-center gap-2"
                   >
                     <Check className="w-6 h-6" />
                     {editingBook ? 'SAVE CHANGES' : 'CREATE BOOK RECORD'}

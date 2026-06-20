@@ -69,7 +69,7 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="flex flex-col lg:flex-row bg-cream min-h-screen" style={{ overflowX: 'hidden' }}>
+    <div className="flex flex-col lg:flex-row bg-slate-950 text-slate-200 min-h-screen" style={{ overflowX: 'hidden' }}>
       {/* Mobile Top Bar — sticky, z-40, 44px touch targets */}
       <div className="lg:hidden flex items-center justify-between bg-primary text-secondary px-4 py-3 sticky top-0 z-40 shadow-md">
         <div className="flex items-center gap-2.5">
