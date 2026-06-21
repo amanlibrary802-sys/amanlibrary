@@ -166,12 +166,12 @@ p, span, div, td, th, h1, h2, h3, h4, h5, h6, li, a, button, label {
   .mobile-card-table tbody tr {
     display: flex;
     flex-direction: column;
-    background: #fff;
-    border-radius: 16px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    padding: 14px 16px;
-    margin-bottom: 10px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    background: #1e293b; /* bg-slate-800 */
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   /* Hide the wrapper border/overflow on mobile (cards have their own) */
@@ -184,10 +184,11 @@ p, span, div, td, th, h1, h2, h3, h4, h5, h6, li, a, button, label {
 
   /* Each <td> is a row with a label */
   .mobile-card-table tbody td {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 6px 0;
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    align-items: start;
+    gap: 0 8px;
+    padding: 5px 0;
     border: none !important;
     font-size: 0.8rem;
     line-height: 1.4;
@@ -196,32 +197,36 @@ p, span, div, td, th, h1, h2, h3, h4, h5, h6, li, a, button, label {
   /* data-label becomes a bold left column */
   .mobile-card-table tbody td::before {
     content: attr(data-label);
-    flex-shrink: 0;
-    width: 82px;
-    font-size: 0.62rem;
+    grid-column: 1 / 2;
+    grid-row: 1 / span 20;
+    font-size: 0.6rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: rgba(15, 23, 42, 0.38);
-    padding-top: 2px;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.4);
+    padding-top: 1px;
+    text-align: left !important;
+  }
+
+  .mobile-card-table tbody td > * {
+    grid-column: 2 / 3;
   }
 
   /* Actions td: full-width flex row */
   .mobile-card-table tbody td.actions-cell {
-    padding-top: 10px;
+    display: flex;
+    padding-top: 8px;
     margin-top: 4px;
-    border-top: 1px solid rgba(15, 23, 42, 0.06) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+    justify-content: flex-end;
   }
 
   .mobile-card-table tbody td.actions-cell::before {
     display: none;
   }
 
-  .mobile-card-table tbody td.actions-cell > div {
-    width: 100%;
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
+  .mobile-card-table tbody td.actions-cell > * {
+    grid-column: auto;
   }
 }
 

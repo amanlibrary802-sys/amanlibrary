@@ -121,7 +121,7 @@ export default function OrdersQueue() {
             <select
               value={selectedBatch}
               onChange={(e) => setSelectedBatch(e.target.value)}
-              className="w-full appearance-none bg-slate-900 border border-white/5 rounded-2xl py-3 pl-5 pr-10 text-sm font-bold text-slate-200 focus:outline-none focus:ring-2 focus:ring-secondary/50 shadow-sm cursor-pointer"
+              className="w-full appearance-none bg-slate-900 border border-white/5 rounded-2xl py-3 pl-5 pr-10 text-sm font-bold text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-sm cursor-pointer"
             >
               <option value="All">All Batches ({orders.length})</option>
               {uniqueBatches.map(batch => (
@@ -149,14 +149,14 @@ export default function OrdersQueue() {
           </thead>
           <tbody className="divide-y divide-white/5">
             {filteredOrders.map((order) => (
-              <tr key={order.transaction_id} className="hover:bg-slate-800/ transition-colors">
+              <tr key={order.transaction_id} className="hover:bg-slate-800/50 transition-colors">
                 <td className="px-8 py-6" data-label="Book Title">
                   <div className="text-[14px] font-bold text-slate-200" style={{ overflowWrap: 'break-word', wordBreak: 'break-word' }}>{order.books.title}</div>
                   <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">{order.books.author}</div>
                 </td>
                 <td className="px-8 py-6" data-label="Student">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center text-blue-400 shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
                       <User className="w-4 h-4" />
                     </div>
                     <div>

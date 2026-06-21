@@ -175,7 +175,7 @@ export default function ActiveLoans() {
               const StatusIcon = status.icon;
               
               return (
-                <tr key={loan.transaction_id} className="hover:bg-slate-800/ transition-colors">
+                <tr key={loan.transaction_id} className="hover:bg-slate-800/50 transition-colors">
                   <td className="px-6 py-6" data-label="Book / Student">
                     <div className="text-[14px] font-bold text-slate-200 mb-0.5 leading-tight" style={{ overflowWrap: 'break-word', wordBreak: 'break-word' }}>{loan.books.title}</div>
                     <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-bold uppercase tracking-widest">

@@ -326,7 +326,7 @@ export default function StudentManagement() {
       </div>
 
       {/* Table Card */}
-      <div className="bg-slate-900 rounded-3xl border border-primary/10 shadow-sm overflow-hidden mobile-card-table-wrapper">
+      <div className="bg-slate-900 rounded-3xl border border-white/5 shadow-sm overflow-hidden mobile-card-table-wrapper">
         {loading ? (
           <div className="flex items-center justify-center py-24">
             <Loader2 className="w-7 h-7 animate-spin text-slate-400" />
@@ -339,7 +339,7 @@ export default function StudentManagement() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left mobile-card-table">
-              <thead className="bg-blue-500/10 border-b border-primary/10">
+              <thead className="bg-slate-800 border-b border-white/5">
                 <tr>
                   <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Student Info</th>
                   <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
@@ -353,7 +353,7 @@ export default function StudentManagement() {
                   <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-primary/5">
+              <tbody className="divide-y divide-white/5">
                 {filteredStudents.map((student, i) => (
                   <motion.tr
                     key={student.id}
@@ -381,7 +381,7 @@ export default function StudentManagement() {
                         {/* Student ID */}
                         <div className="flex items-center gap-2">
                           <span className="text-[10px] font-bold text-slate-400 uppercase w-6">ID</span>
-                          <code className="text-xs font-mono bg-blue-500/10 text-slate-200 px-2 py-0.5 rounded-md border border-primary/10">
+                          <code className="text-xs font-mono bg-blue-500/10 text-slate-200 px-2 py-0.5 rounded-md border border-white/10">
                             {student.name || '—'}
                           </code>
                           {student.name && (
@@ -427,7 +427,7 @@ export default function StudentManagement() {
                       <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                         student.role === 'admin'
                           ? 'bg-secondary/10 text-blue-400 border border-white/10'
-                          : 'bg-blue-500/10 text-slate-400 border border-primary/10'
+                          : 'bg-blue-500/10 text-slate-400 border border-white/10'
                       }`}>
                         {student.role || 'student'}
                       </span>
@@ -777,7 +777,7 @@ export default function StudentManagement() {
                 </button>
               </div>
 
-              <div className="p-6 overflow-y-auto flex-1 custom-scrollbar bg-slate-800/">
+              <div className="p-6 overflow-y-auto flex-1 custom-scrollbar bg-slate-800/50">
                 {loadingHistory ? (
                   <div className="flex items-center justify-center py-20">
                     <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
@@ -791,8 +791,8 @@ export default function StudentManagement() {
                 ) : (
                   <div className="space-y-4">
                     {readingHistory.map(tx => (
-                      <div key={tx.transaction_id} className="bg-slate-900 border border-primary/5 p-4 rounded-xl shadow-sm flex items-start gap-4 group/item transition-all hover:border-white/10">
-                        <div className="w-10 h-14 bg-blue-500/10 rounded-md border border-primary/10 flex items-center justify-center shrink-0">
+                      <div key={tx.transaction_id} className="bg-slate-900 border border-white/5 p-4 rounded-xl shadow-sm flex items-start gap-4 group/item transition-all hover:border-white/10">
+                        <div className="w-10 h-14 bg-blue-500/10 rounded-md border border-white/10 flex items-center justify-center shrink-0">
                           <Book className="w-5 h-5 text-slate-400" />
                         </div>
                         <div className="flex-1 min-w-0">

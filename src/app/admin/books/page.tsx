@@ -409,7 +409,7 @@ export default function BookManagement() {
           </thead>
           <tbody className="divide-y divide-white/5">
             {filteredBooks.map((book) => (
-              <tr key={book.book_id} className="hover:bg-slate-800/ transition-colors group">
+              <tr key={book.book_id} className="hover:bg-slate-800/50 transition-colors group">
                 <td className="px-8 py-6" data-label="Book Info">
                   <div className="text-[13px] font-bold text-slate-200 group-hover:text-blue-400 transition-colors" title={book.title}>
                     {book.title}
@@ -499,14 +499,14 @@ export default function BookManagement() {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               className="relative w-full max-w-2xl bg-slate-900 rounded-3xl shadow-2xl overflow-hidden"
             >
-              <div className="bg-secondary p-6 flex justify-between items-center text-slate-200">
+              <div className="bg-secondary p-5 sm:p-6 flex justify-between items-center text-slate-200">
                 <h3 className="text-2xl font-amiri font-bold">Bulk Add Books</h3>
                 <button onClick={() => setIsBulkModalOpen(false)} className="text-slate-400 hover:text-slate-200 transition-colors">
                   <X className="w-6 h-6" />
                 </button>
               </div>
 
-              <form onSubmit={handleBulkSubmit} className="p-8 space-y-6">
+              <form onSubmit={handleBulkSubmit} className="p-5 sm:p-8 space-y-4 sm:space-y-6">
                 <div className="space-y-4">
                   <div className="bg-slate-800/50 p-4 rounded-xl text-[10px] font-bold text-slate-400 leading-relaxed uppercase tracking-widest">
                     Format: Title, Author, Category, Shelf Location (one per line)
@@ -519,14 +519,14 @@ export default function BookManagement() {
                     onChange={(e) => setBulkText(e.target.value)}
                     rows={10}
                     placeholder="Enter books here..."
-                    className="w-full bg-slate-800/50 border border-white/10 rounded-2xl py-4 px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium resize-none"
+                    className="w-full bg-slate-800/50 border border-white/10 rounded-xl sm:rounded-2xl py-3 px-5 sm:py-4 sm:px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-slate-800 text-white border border-white/10 hover:bg-slate-700 py-5 rounded-2xl font-bold text-lg hover:scale-[1.02] active:scale-95 transition-all shadow-xl flex items-center justify-center gap-2"
+                  className="w-full bg-slate-800 text-white border border-white/10 hover:bg-slate-700 py-3 sm:py-5 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg hover:scale-[1.02] active:scale-95 transition-all shadow-xl flex items-center justify-center gap-2"
                 >
                   {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : <Check className="w-6 h-6" />}
                   UPLOAD ALL RECORDS
@@ -554,7 +554,7 @@ export default function BookManagement() {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               className="relative w-full max-w-2xl bg-slate-900 rounded-3xl shadow-2xl overflow-hidden"
             >
-              <div className="bg-slate-800/50 p-6 flex justify-between items-center border-b border-white/5">
+              <div className="bg-slate-800/50 p-5 sm:p-6 flex justify-between items-center border-b border-white/5">
                 <h3 className="text-2xl font-amiri font-bold text-slate-200">
                   {editingBook ? 'Edit Book' : 'Add New Book'}
                 </h3>
@@ -563,8 +563,8 @@ export default function BookManagement() {
                 </button>
               </div>
 
-              <form onSubmit={handleSubmit} className="p-8 space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="p-5 sm:p-8 space-y-4 sm:space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Book Title</label>
                     <input
@@ -572,7 +572,7 @@ export default function BookManagement() {
                       type="text"
                       value={formData.title}
                       onChange={(e) => setFormData({...formData, title: e.target.value})}
-                      className="w-full bg-slate-800/50 border border-white/10 rounded-2xl py-4 px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
+                      className="w-full bg-slate-800/50 border border-white/10 rounded-xl sm:rounded-2xl py-3 px-4 sm:py-4 sm:px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
                       placeholder="e.g. Sahih al-Bukhari"
                     />
                   </div>
@@ -583,7 +583,7 @@ export default function BookManagement() {
                       type="text"
                       value={formData.author}
                       onChange={(e) => setFormData({...formData, author: e.target.value})}
-                      className="w-full bg-slate-800/50 border border-white/10 rounded-2xl py-4 px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
+                      className="w-full bg-slate-800/50 border border-white/10 rounded-xl sm:rounded-2xl py-3 px-4 sm:py-4 sm:px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
                       placeholder="e.g. Imam Bukhari"
                     />
                   </div>
@@ -591,7 +591,7 @@ export default function BookManagement() {
 
 
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
                   <div className="space-y-2">
                     <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">Category</label>
                     <div className="relative group">
@@ -613,7 +613,7 @@ export default function BookManagement() {
                             shelf_loc: isAutoLoc ? getNextShelfLoc(newCat, books) : formData.shelf_loc
                           });
                         }}
-                        className="w-full bg-slate-800/50 border border-white/10 rounded-2xl py-4 px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium appearance-none cursor-pointer"
+                        className="w-full bg-slate-800/50 border border-white/10 rounded-xl sm:rounded-2xl py-3 px-4 sm:py-4 sm:px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium appearance-none cursor-pointer"
                       >
                         {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                       </select>
@@ -631,7 +631,7 @@ export default function BookManagement() {
                       type="text"
                       value={formData.shelf_loc}
                       onChange={(e) => setFormData({...formData, shelf_loc: e.target.value})}
-                      className="w-full bg-slate-800/50 border border-white/10 rounded-2xl py-4 px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
+                      className="w-full bg-slate-800/50 border border-white/10 rounded-xl sm:rounded-2xl py-3 px-4 sm:py-4 sm:px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
                       placeholder={`e.g. ${CATEGORY_PREFIX[formData.category] ?? formData.category[0]}12`}
                     />
                   </div>
@@ -642,15 +642,15 @@ export default function BookManagement() {
                       min="1"
                       value={formData.total_copies}
                       onChange={(e) => setFormData({...formData, total_copies: parseInt(e.target.value)})}
-                      className="w-full bg-slate-800/50 border border-white/10 rounded-2xl py-4 px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
+                      className="w-full bg-slate-800/50 border border-white/10 rounded-xl sm:rounded-2xl py-3 px-4 sm:py-4 sm:px-6 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
                     />
                   </div>
                 </div>
 
-                <div className="pt-4">
+                <div className="pt-2 sm:pt-4">
                   <button
                     type="submit"
-                    className="w-full bg-slate-800 text-white border border-white/10 hover:bg-slate-700 py-5 rounded-2xl font-bold text-lg hover:scale-[1.02] active:scale-95 transition-all shadow-xl flex items-center justify-center gap-2"
+                    className="w-full bg-slate-800 text-white border border-white/10 hover:bg-slate-700 py-3 sm:py-5 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg hover:scale-[1.02] active:scale-95 transition-all shadow-xl flex items-center justify-center gap-2"
                   >
                     <Check className="w-6 h-6" />
                     {editingBook ? 'SAVE CHANGES' : 'CREATE BOOK RECORD'}

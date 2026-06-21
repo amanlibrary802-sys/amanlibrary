@@ -62,57 +62,25 @@ export default function AdminOverview() {
     loadEvents();
   }, []);
 
-  const loadEvents = () => {
-    const savedEvents = localStorage.getItem('aman_library_events');
-    if (savedEvents) {
-      setEvents(JSON.parse(savedEvents));
-    } else {
-      // Compute relative dates so mock data remains correctly classified on load
-      const upcomingDate = new Date();
-      upcomingDate.setDate(upcomingDate.getDate() + 3);
-      const upcomingStr = upcomingDate.toISOString().split('T')[0];
-
-      const scheduledDate = new Date();
-      scheduledDate.setDate(scheduledDate.getDate() + 12);
-      const scheduledStr = scheduledDate.toISOString().split('T')[0];
-
-      const defaultEvents: LibraryEvent[] = [
-        {
-          id: '1',
-          title: 'Weekly Reader Circle Meetup',
-          date: upcomingStr,
-          time: '04:30 PM',
-          description: 'Weekly discussion on modern literary analysis and history.',
-          completed: false
-        },
-        {
-          id: '2',
-          title: 'Annual Book Exhibition 2026',
-          date: scheduledStr,
-          time: '09:00 AM',
-          description: 'Showcasing rare Islamic manuscripts and historical prints.',
-          completed: false
-        },
-        {
-          id: '3',
-          title: 'Librarian Training Workshop',
-          date: '2026-05-10',
-          time: '10:00 AM',
-          description: 'Completed onboarding session for barcode reader integration.',
-          completed: true
-        }
-      ];
-      setEvents(defaultEvents);
-      localStorage.setItem('aman_library_events', JSON.stringify(defaultEvents));
+  const loadEvents = async () => {
+    try {
+      const res = await fetch('/api/events');
+      if (res.ok) {
+        const data = await res.json();
+        setEvents(data);
+      }
+    } catch (err) {
+      console.error('Failed to load events', err);
     }
   };
 
-  const handleAddEvent = (e: React.FormEvent) => {
+  const handleAddEvent = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newEvent.title || !newEvent.date || !newEvent.time) return;
 
+    const tempId = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString();
     const eventToAdd: LibraryEvent = {
-      id: Date.now().toString(),
+      id: tempId,
       title: newEvent.title,
       date: newEvent.date,
       time: newEvent.time,
@@ -120,23 +88,52 @@ export default function AdminOverview() {
       completed: false
     };
 
-    const updated = [eventToAdd, ...events];
-    setEvents(updated);
-    localStorage.setItem('aman_library_events', JSON.stringify(updated));
+    setEvents([eventToAdd, ...events]);
     setNewEvent({ title: '', date: '', time: '', description: '' });
     setShowAddEvent(false);
+
+    try {
+      await fetch('/api/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(eventToAdd)
+      });
+      loadEvents();
+    } catch (err) {
+      console.error('Failed to save event', err);
+      loadEvents();
+    }
   };
 
-  const handleToggleComplete = (id: string) => {
-    const updated = events.map(e => e.id === id ? { ...e, completed: !e.completed } : e);
-    setEvents(updated);
-    localStorage.setItem('aman_library_events', JSON.stringify(updated));
+  const handleToggleComplete = async (id: string) => {
+    const event = events.find(e => e.id === id);
+    if (!event) return;
+    
+    setEvents(events.map(e => e.id === id ? { ...e, completed: !e.completed } : e));
+
+    try {
+      await fetch('/api/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...event, completed: !event.completed })
+      });
+    } catch (err) {
+      console.error('Failed to toggle event', err);
+      loadEvents();
+    }
   };
 
-  const handleDeleteEvent = (id: string) => {
-    const updated = events.filter(e => e.id !== id);
-    setEvents(updated);
-    localStorage.setItem('aman_library_events', JSON.stringify(updated));
+  const handleDeleteEvent = async (id: string) => {
+    setEvents(events.filter(e => e.id !== id));
+
+    try {
+      await fetch(`/api/events?id=${id}`, {
+        method: 'DELETE'
+      });
+    } catch (err) {
+      console.error('Failed to delete event', err);
+      loadEvents();
+    }
   };
 
   // Helper date calculations for dynamic tabs

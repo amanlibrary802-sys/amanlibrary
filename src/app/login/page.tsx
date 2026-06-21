@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, User as UserIcon, Loader2, ArrowRight, BookOpen, Star, CheckCircle2, Eye, EyeOff } from 'lucide-react';
 import { supabase } from '@/lib/supabase/client';
@@ -62,6 +62,15 @@ export default function StudentLoginPage() {
       setLoading(false);
     }
   };
+
+  // Check if already logged in to auto-redirect
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        router.push('/student');
+      }
+    });
+  }, [router]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[var(--brand-dark)] via-[var(--brand-primary)] to-[var(--brand-dark)] flex items-center justify-center p-6 relative overflow-hidden font-sans">
@@ -160,6 +169,8 @@ export default function StudentLoginPage() {
                 <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-[var(--brand-dark)]/30 group-focus-within:text-[var(--brand-accent)] transition-colors pointer-events-none" />
                 <input
                   id="student-id"
+                  name="username"
+                  autoComplete="username"
                   type="text"
                   required
                   value={id}
@@ -177,6 +188,8 @@ export default function StudentLoginPage() {
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-[var(--brand-dark)]/30 group-focus-within:text-[var(--brand-accent)] transition-colors pointer-events-none" />
                 <input
                   id="student-pw"
+                  name="password"
+                  autoComplete="current-password"
                   type={showPassword ? "text" : "password"}
                   required
                   value={pw}
